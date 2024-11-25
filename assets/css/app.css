@@ -1,0 +1,145 @@
+@import "tailwindcss/base";
+@import "tailwindcss/components";
+@import "tailwindcss/utilities";
+
+/* This file is for your main application CSS */
+/*LANGING PAGE STYLING */
+
+ .container-l {
+    margin: 0;
+    padding: 0;
+    font-family: "Arial", sans-serif;
+    background: linear-gradient(to bottom right, #eee, #8e94fb, #c9cbff);
+    color: #fff;
+    height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  .container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    width: 90%;
+    max-width: 800px;
+    padding: 20px;
+    background: rgba(255, 255, 255, 0.1);
+    border-radius: 20px;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+  }
+
+  h1 {
+    font-size: 3rem;
+    margin-bottom: 20px;
+    animation: fadeIn 1.5s ease-in-out;
+    color: black;
+  font-weight: bold;
+  }
+
+  .typing {
+    font-size: 2rem;
+    color: #ffe066;
+    border-right: 3px solid #ffe066;
+    white-space: nowrap;
+    overflow: hidden;
+    animation: typing 4s steps(40, end), blink 0.5s step-end infinite;
+    margin-bottom: 30px;
+  }
+
+  @keyframes typing {
+    from {
+      width: 0;
+    }
+    to {
+      width: 100%;
+    }
+  }
+
+  @keyframes blink {
+    from,
+    to {
+      border-color: transparent;
+    }
+    50% {
+      border-color: #ffe066;
+    }
+  }
+
+  @keyframes fadeIn {
+    from {
+      opacity: 0;
+    }
+    to {
+      opacity: 1;
+    }
+  }
+
+    /* Button Styling */
+    .button {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 10px; 
+    padding: 20px 40px; 
+    font-size: 1.5rem; 
+    font-weight: bold;
+    text-decoration: none;
+    color: #fff;
+    background: linear-gradient(45deg, #6a67ce, #8e94fb);
+    border-radius: 12px; 
+    box-shadow: 0px 8px 15px rgba(0, 0, 0, 0.2); 
+    transition: all 0.3s ease-in-out;
+    height:6pc;
+    }
+    .buttons {
+        display: flex;
+        flex-wrap: wrap;
+        justify-content: center;
+        gap: 30px; 
+        margin-top: 50px;
+        }
+    
+  .button:hover {
+    background: linear-gradient(45deg, #ffe066, #ffd966);
+    color: #4e54c8;
+    transform: translateY(-5px) scale(1.05);
+    box-shadow: 0px 12px 20px rgba(0, 0, 0, 0.3);
+  }
+
+  .button i {
+    font-size: 2rem;
+  }
+
+  /* Responsive Styling */
+  @media (max-width: 768px) {
+    h1 {
+      font-size: 2.5rem;
+    }
+
+    .typing {
+      font-size: 1.5rem;
+    }
+
+    .button {
+      padding: 10px 20px;
+      font-size: 1.2rem;
+    }
+
+    .button i {
+      font-size: 1.5rem;
+    }
+  }
+
+  @media (max-width: 480px) {
+    .buttons {
+      flex-direction: column;
+    }
+
+    .button {
+      width: 90%;
+    }
+  }
+/*END OF LANGING PAGE STYLING */
