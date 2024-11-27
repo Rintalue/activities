@@ -12,8 +12,14 @@ defmodule Ucl.Accounts.UserNotifier do
       |> subject(subject)
       |> text_body(body)
 
-    with {:ok, _metadata} <- Mailer.deliver(email) do
-      {:ok, email}
+    case Mailer.deliver(email) do
+      {:ok, metadata} ->
+        IO.inspect(metadata, label: "Email Sent Metadata")
+        {:ok, email}
+
+      {:error, reason} ->
+        IO.inspect(reason, label: "Email Sending Error")
+        {:error, reason}
     end
   end
 

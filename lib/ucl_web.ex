@@ -65,7 +65,14 @@ defmodule UclWeb do
       unquote(html_helpers())
     end
   end
+  def live_view_auth do
+    quote do
+      use Phoenix.LiveView,
+        layout: {UclWeb.Layouts, :auth}
 
+      unquote(html_helpers())
+    end
+  end
 
   def live_component do
     quote do

@@ -8,6 +8,10 @@ defmodule Ucl.Accounts do
 
   alias Ucl.Accounts.{User, UserToken, UserNotifier}
 
+  def list_users do
+    Repo.all(User)
+  end
+
   ## Database getters
 
   @doc """
@@ -60,6 +64,7 @@ defmodule Ucl.Accounts do
   """
   def get_user!(id), do: Repo.get!(User, id)
 
+
   ## User registration
 
   @doc """
@@ -77,7 +82,7 @@ defmodule Ucl.Accounts do
  def register_user(attrs) do
   changeset = User.registration_changeset(%User{}, attrs)
 
-  IO.inspect(changeset, label: "Registration Changeset")  # Log the changeset to check its validity
+  IO.inspect(changeset, label: "Registration Changeset")
 
   case Repo.insert(changeset) do
     {:ok, user} ->
@@ -252,7 +257,21 @@ end
     Repo.delete_all(UserToken.by_token_and_context_query(token, "session"))
     :ok
   end
+ @doc """
+  Deletes the given user.
 
+  ## Examples
+
+      iex> delete_user(user)
+      {:ok, %User{}}
+
+      iex> delete_user(invalid_user)
+      {:error, %Ecto.Changeset{}}
+
+  """
+  def delete_user(%User{} = user) do
+    Repo.delete(user)
+  end
   ## Confirmation
 
   @doc ~S"""
@@ -337,6 +356,12 @@ end
     else
       _ -> nil
     end
+  end
+
+  def update_user(%User{} = user, attrs) do
+    user
+    |> User.registration_changeset(attrs)
+    |> Repo.update()
   end
 
   @doc """

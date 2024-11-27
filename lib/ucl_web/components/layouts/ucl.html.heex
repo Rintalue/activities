@@ -22,7 +22,12 @@
       id="sidebar"
     >
       <div class="h-16 flex items-center justify-center bg-gray-700">
-      
+       <img src= "/images/ucl.png"  style = "width: 40px;
+    height: 40px; 
+    border-radius: 50%; 
+    object-fit: cover; 
+    margin-right:13px;
+    margin-left:-88px;" />
         <span class="mr-8 text-lg font-semibold">UCL</span>
       </div>
       
@@ -83,7 +88,22 @@
           <i class="fa fa-bars text-2xl"></i>
         </button>
         <h1 class="text-xl font-semibold">Dashboard</h1>
-        <.link
+       
+        <ul class="relative z-10 flex items-center gap-4 px-4 sm:px-6 lg:px-8 justify-end">
+      <%= if @current_user do %>
+        <li class="text-[0.8125rem] leading-6 text-zinc-900">
+          <%= @current_user.email %>
+        </li>
+        <li>
+          <.link
+            href={~p"/users/settings"}
+            class="text-[0.8125rem] leading-6 text-zinc-900 font-semibold hover:text-zinc-700"
+          >
+            <i class="fa fa-user mr-2"></i>
+        
+          </.link>
+        </li>
+ <.link
           href={~p"/users/log_out"}
           method="delete"
           class="text-sm font-semibold text-gray-700 hover:text-red-500"
@@ -91,8 +111,27 @@
           <i class="fa fa-sign-out-alt mr-2"></i>
           Log Out
         </.link>
-      </nav>
-
+     
+      <% else %>
+        <li>
+          <.link
+            href={~p"/users/register"}
+            class="text-[0.8125rem] leading-6 text-zinc-900 font-semibold hover:text-zinc-700"
+          >
+            Register
+          </.link>
+        </li>
+        <li>
+          <.link
+            href={~p"/users/log_in"}
+            class="text-[0.8125rem] leading-6 text-zinc-900 font-semibold hover:text-zinc-700"
+          >
+            Log in
+          </.link>
+        </li>
+      <% end %>
+    </ul>
+ </nav>
       <!-- Flash Messages -->
       <div class="mx-4 mt-4">
         <.flash_group flash={@flash} />
@@ -100,7 +139,10 @@
 
       <!-- Dynamic Content -->
       <main class="flex-grow p-6">
-        <section class="bg-white shadow-lg rounded-lg p-6">
+        <section class="bg-white shadow-lg rounded-lg p-6" style="box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    border: 1px solid aquamarine;   
+    overflow:scroll;
+  ">
           <%= @inner_content %>
         </section>
       </main>
@@ -116,14 +158,23 @@
     <!-- Scripts -->
     <script defer phx-track-static type="text/javascript" src={~p"/assets/app.js"}></script>
   
-    <script>
-  const sidebar = document.getElementById('sidebar');
+   
+<script>
   function toggleSidebar() {
-    sidebar.classList.toggle('-translate-x-full');
+    const sidebar = document.getElementById("sidebar");
+    sidebar.classList.toggle("-translate-x-full");
   }
-  document.addEventListener('click', function (event) {
-    if (!sidebar.contains(event.target) && !event.target.closest('button') && !sidebar.classList.contains('-translate-x-full')) {
-      sidebar.classList.add('-translate-x-full');
+
+  document.addEventListener("click", function (event) {
+    const sidebar = document.getElementById("sidebar");
+    const sidebarButton = document.querySelector("button[onclick='toggleSidebar()']");
+
+    if (
+      !sidebar.contains(event.target) &&  
+      !sidebarButton.contains(event.target) &&  
+      !sidebar.classList.contains("-translate-x-full")  
+    ) {
+      sidebar.classList.add("-translate-x-full"); 
     }
   });
 </script>

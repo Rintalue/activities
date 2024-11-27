@@ -1,5 +1,5 @@
 defmodule UclWeb.UserResetPasswordLive do
-  use UclWeb, :live_view
+  use UclWeb, :live_view_auth
 
   alias Ucl.Accounts
 

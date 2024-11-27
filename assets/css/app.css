@@ -8,10 +8,9 @@
  .container-l {
     margin: 0;
     padding: 0;
-    font-family: "Arial", sans-serif;
-    background: linear-gradient(to bottom right, #eee, #8e94fb, #c9cbff);
+    background:linear-gradient(to bottom right, #eee, #8e94fb, #e5e5fd);
     color: #fff;
-    height: 100vh;
+    height: 104vh;
     display: flex;
     align-items: center;
     justify-content: center;
@@ -30,6 +29,20 @@
     border-radius: 20px;
     box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
   }
+  .container img {
+    width: 150px;
+    height: 150px; 
+    border-radius: 50%; 
+    object-fit: cover; 
+    margin: 20px 0; 
+    box-shadow: 0 8px 15px rgba(0, 0, 0, 0.2); 
+    transition: transform 0.3s ease-in-out, box-shadow 0.3s ease-in-out;
+  }
+  
+  .container img:hover {
+    transform: scale(1.1);
+    box-shadow: 0 12px 20px rgba(0, 0, 0, 0.3); 
+  }
 
   h1 {
     font-size: 3rem;
@@ -39,43 +52,6 @@
   font-weight: bold;
   }
 
-  .typing {
-    font-size: 2rem;
-    color: #ffe066;
-    border-right: 3px solid #ffe066;
-    white-space: nowrap;
-    overflow: hidden;
-    animation: typing 4s steps(40, end), blink 0.5s step-end infinite;
-    margin-bottom: 30px;
-  }
-
-  @keyframes typing {
-    from {
-      width: 0;
-    }
-    to {
-      width: 100%;
-    }
-  }
-
-  @keyframes blink {
-    from,
-    to {
-      border-color: transparent;
-    }
-    50% {
-      border-color: #ffe066;
-    }
-  }
-
-  @keyframes fadeIn {
-    from {
-      opacity: 0;
-    }
-    to {
-      opacity: 1;
-    }
-  }
 
     /* Button Styling */
     .button {
@@ -90,9 +66,12 @@
     color: #fff;
     background: linear-gradient(45deg, #6a67ce, #8e94fb);
     border-radius: 12px; 
-    box-shadow: 0px 8px 15px rgba(0, 0, 0, 0.2); 
+    border: 1px solid #56ae91;
+    width: 13pc;
+    box-shadow: 0px 8px 15px rgba(0, 0, 0, 0.3); 
     transition: all 0.3s ease-in-out;
-    height:6pc;
+    height:8pc;
+   
     }
     .buttons {
         display: flex;
@@ -119,10 +98,6 @@
       font-size: 2.5rem;
     }
 
-    .typing {
-      font-size: 1.5rem;
-    }
-
     .button {
       padding: 10px 20px;
       font-size: 1.2rem;
@@ -131,15 +106,61 @@
     .button i {
       font-size: 1.5rem;
     }
+    .container img {
+      width: 120px;
+      height: 120px;
+    }
   }
 
   @media (max-width: 480px) {
     .buttons {
       flex-direction: column;
+      width: 14pc;
+      margin-left: 1pc;
     }
 
     .button {
       width: 90%;
     }
+    .container img {
+      width: 100px;
+      height: 100px;
+    }
   }
 /*END OF LANGING PAGE STYLING */
+
+:root {
+  --brand-color: #4f46e5;
+  
+}
+
+.text-brand {
+  color: var(--brand-color);
+}
+
+.bg-brand {
+  background-color: var(--brand-color);
+}
+
+.bg-brand-dark {
+  background-color: #4338ca;
+}
+
+.font-semibold {
+  font-weight: 600;
+}
+/* General header styles */
+.header {
+  background-color: white;
+  padding: 10px;
+  border-radius: 10px;
+  margin-bottom: 10px;
+  height: 80px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  width: 100%;
+  box-sizing: border-box;
+}
+
+

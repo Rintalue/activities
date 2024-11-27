@@ -16,7 +16,7 @@ defmodule Ucl.ActivitiesFixtures do
         stop_time: ~N[2024-11-19 11:55:00],
         type: "some type"
       })
-      |> Ucl.Activities.create_activity()
+      |> Ucl.Activities.Activities.create_activity()
 
     activity
   end

@@ -1,50 +1,116 @@
 defmodule UclWeb.UserRegistrationLive do
-  use UclWeb, :live_view
+  use UclWeb, :live_view_auth
 
   alias Ucl.Accounts
   alias Ucl.Accounts.User
 
   def render(assigns) do
     ~H"""
-    <div class="mx-auto max-w-sm">
-      <.header class="text-center">
-        Register for an account
-        <:subtitle>
-          Already registered?
-          <.link navigate={~p"/users/log_in"} class="font-semibold text-brand hover:underline">
-            Log in
-          </.link>
-          to your account now.
-        </:subtitle>
-      </.header>
+    <div class="flex items-center justify-center min-h-screen bg-gray-100">
+    <div class="w-full max-w-2xl p-6 bg-white border-2 border-gray-200 rounded-lg shadow-xl"
+      style="box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1), 0px 10px 20px rgba(0, 0, 0, 0.1);"
+     >
+    <.header class="text-center mb-6">
+      Register for an account
+      <:subtitle>
+        Already registered?
+        <.link navigate={~p"/users/log_in"} class="font-semibold text-blue-600 hover:underline">
+          Log in
+        </.link>
+        to your account now.
+      </:subtitle>
+    </.header>
 
-      <.simple_form
-        for={@form}
-        id="registration_form"
-        phx-submit="save"
-        phx-change="validate"
-        phx-trigger-action={@trigger_submit}
-        action={~p"/users/log_in?_action=registered"}
-        method="post"
-      >
-        <.error :if={@check_errors}>
-          Oops, something went wrong! Please check the errors below.
-        </.error>
-        <.input field={@form[:first_name]} type="text" label="First Name" required />
-        <.input field={@form[:second_name]} type="text" label="Last Name" required />
-        <.input field={@form[:emp_id]} type="text" label="Employee ID" required />
-        <.input field={@form[:email]} type="email" label="Email" required />
-        <.input field={@form[:username]} type="text" label="Username" />
-        <.input field={@form[:role]} type="text" label="Role" />
-        <.input field={@form[:department]} type="text" label="Department" />
-        <.input field={@form[:active]} type="text" label="Active" />
-        <.input field={@form[:password]} type="password" label="Password" required />
+    <.simple_form
+      for={@form}
+      id="registration_form"
+      phx-submit="save"
+      phx-change="validate"
+      phx-trigger-action={@trigger_submit}
+      action={~p"/users/log_in?_action=registered"}
+      method="post"
+    >
+      <.error :if={@check_errors}>
+        Oops, something went wrong! Please check the errors below.
+      </.error>
 
-        <:actions>
-          <.button phx-disable-with="Creating account..." class="w-full">Create an account</.button>
-        </:actions>
-      </.simple_form>
-    </div>
+      <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+        <.input
+          field={@form[:first_name]}
+          type="text"
+          label="First Name"
+          required
+          class="w-full border border-gray-300 rounded-md p-2 focus:ring-blue-500 focus:border-blue-500"
+        />
+        <.input
+          field={@form[:second_name]}
+          type="text"
+          label="Last Name"
+          required
+          class="w-full border border-gray-300 rounded-md p-2 focus:ring-blue-500 focus:border-blue-500"
+        />
+        <.input
+          field={@form[:emp_id]}
+          type="text"
+          label="Employee ID"
+          required
+          class="w-full border border-gray-300 rounded-md p-2 focus:ring-blue-500 focus:border-blue-500"
+        />
+        <.input
+          field={@form[:email]}
+          type="email"
+          label="Email"
+          required
+          class="w-full border border-gray-300 rounded-md p-2 focus:ring-blue-500 focus:border-blue-500"
+        />
+        <.input
+          field={@form[:username]}
+          type="text"
+          label="Username"
+          class="w-full border border-gray-300 rounded-md p-2 focus:ring-blue-500 focus:border-blue-500"
+        />
+        <.input
+          field={@form[:role]}
+          type="text"
+          label="Role"
+          class="w-full border border-gray-300 rounded-md p-2 focus:ring-blue-500 focus:border-blue-500"
+        />
+        <.input
+          field={@form[:department]}
+          type="text"
+          label="Department"
+          class="w-full border border-gray-300 rounded-md p-2 focus:ring-blue-500 focus:border-blue-500"
+        />
+        <.input
+          field={@form[:active]}
+          type="select"
+          label="Status"
+          options={["active", "inactive"]}
+          prompt="Choose status"
+          class="w-full border border-gray-300 rounded-md p-2 focus:ring-blue-500 focus:border-blue-500"
+        />
+      </div>
+      <div class="mt-6">
+        <.input
+          field={@form[:password]}
+          type="password"
+          label="Password"
+          required
+          class="w-full border border-gray-300 rounded-md p-2 focus:ring-blue-500 focus:border-blue-500"
+        />
+      </div>
+      <:actions>
+        <.button
+          phx-disable-with="Creating account..."
+          class="w-full mt-6 bg-blue-600 text-white py-2 rounded-md hover:bg-blue-700"
+        >
+          Create an account
+        </.button>
+      </:actions>
+    </.simple_form>
+       </div>
+     </div>
+
     """
   end
 

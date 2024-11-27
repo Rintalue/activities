@@ -1,5 +1,5 @@
 defmodule UclWeb.UserLoginLive do
-  use UclWeb, :live_view
+  use UclWeb, :live_view_auth
 
   def render(assigns) do
     ~H"""
