@@ -37,6 +37,24 @@ defmodule Ucl.Rooms.Rooms do
   """
   def get_room!(id), do: Repo.get!(Room, id)
 
+
+  def get_room_name(room_id) do
+    case Repo.get(Ucl.Rooms.Room, room_id) do
+      nil ->
+        nil
+      room ->
+        %{
+          id: room.id,
+          name: room.name
+        }
+    end
+  end
+
+
+  @spec create_room(
+          :invalid
+          | %{optional(:__struct__) => none(), optional(atom() | binary()) => any()}
+        ) :: any()
   @doc """
   Creates a room.
 

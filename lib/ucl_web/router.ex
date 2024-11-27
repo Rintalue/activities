@@ -1,4 +1,5 @@
 defmodule UclWeb.Router do
+  alias UclWeb.RoomReportLive
   use UclWeb, :router
 
   import UclWeb.UserAuth
@@ -89,6 +90,8 @@ defmodule UclWeb.Router do
       live "/users", UserLive.Index, :index
       live "/users/new", UserLive.Index, :new
       live "/users/:id/edit", UserLive.Index, :edit
+
+      live "/room/reports", RoomReportLive.Index, :index
 
     end
   end

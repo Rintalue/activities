@@ -19,10 +19,16 @@ defmodule UclWeb.ActivityLive.FormComponent do
         phx-change="validate"
         phx-submit="save"
       >
-        <.input field={@form[:type]} type="text" label="Type" />
+        <.input
+          field={@form[:type]}
+          type="select"
+          label="Type of Activity"
+          options={["Cleaning", "Maintaining a Machine"]}
+          prompt="choose activity"
+        />
         <.input field={@form[:start_time]} type="datetime-local" label="Start time" />
         <.input field={@form[:stop_time]} type="datetime-local" label="Stop time" />
-        <.input field={@form[:product_batch]} type="text" label="Product batch" />
+        <.input field={@form[:product_batch]} type="textarea" label="Description" />
 
         <.input field={@form[:room_id]} type="select"  options={@rooms} label="Room" />
         <:actions>

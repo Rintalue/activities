@@ -1,0 +1,57 @@
+<!-- Page Content-->
+<.header>
+  <h5 class="text-md"><%= @page_title %></h5>
+  <br />
+  <.link navigate={~p"/rooms"} class="inline-block">
+    <.button style="background: #016db8">Back to Rooms</.button>
+  </.link>
+</.header>
+
+<div>
+  <!-- Filter Form -->
+  <.simple_form
+    for={}
+    class="flex flex-row gap-2 items-center"
+    id="search-room"
+    phx-submit="search-room"
+  >
+    <div class="grid grid-cols-3 gap-4">
+      <div>
+        <label class="text-[18px]">Filter By Room</label>
+        <br />
+        <.input
+          type="select"
+          options={@rooms}
+          prompt="Select a room"
+          name="room"
+          value={@room_id}
+          required
+          class="bg-white w-[300px] text-[#131217] p-2 px-4 focus:ring-0"
+          style="border-bottom: 2px solid #c5c5c5;"
+        />
+      </div>
+      <div class="flex items-center mt-7">
+        <.button phx-disable-with="Searching..." style="background: #016db8;">
+          Search
+        </.button>
+      </div>
+    </div>
+  </.simple_form>
+
+  <!-- Results Table -->
+  <div style={@results_style}>
+    <span class="text-gray-500 text-2xl font-bold">
+      Total Activities: <%= @total_activities %>
+    </span>
+   <.table id="activity-table" rows={@activity_data.report_activities}>
+  <:col :let={activity} label="First Name"><%= activity.first_name %></:col>
+  <:col :let={activity} label="Second Name"><%= activity.second_name %></:col>
+  <:col :let={activity} label="Employee ID"><%= activity.emp_id %></:col>
+  <:col :let={activity} label="Type"><%= activity.type %></:col>
+  <:col :let={activity} label="Room"><%= activity.room %></:col>
+  <:col :let={activity} label="Start Time"><%= activity.start_time %></:col>
+  <:col :let={activity} label="Stop Time"><%= activity.stop_time %></:col>
+</.table>
+
+  </div>
+</div>

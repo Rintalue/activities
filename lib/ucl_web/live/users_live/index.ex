@@ -12,7 +12,7 @@ defmodule UclWeb.UserLive.Index do
 
       current_user ->
         IO.inspect(current_user, label: "Current User")
-        if current_user.role == "Admin" do
+        if current_user.id == 6 do
           {:ok,
            socket
            |> assign(:current_user, current_user)

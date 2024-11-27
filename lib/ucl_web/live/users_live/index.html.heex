@@ -1,7 +1,7 @@
 <.header class="bg-white p-2.5 rounded-[10px] mb-[10px] h-[80px]">
-  Listing Users
+ User Information
   <:actions>
-   <%= if @current_user.role == "Admin" do %>
+   <%= if @current_user.id == 6 do %>
     <.link patch={~p"/users/new"}>
       <.button>New User</.button>
     </.link>

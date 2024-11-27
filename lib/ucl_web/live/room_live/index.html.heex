@@ -1,9 +1,15 @@
-<.header>
+<.header >
   Listing Rooms
+   <.link navigate={~p"/room/reports"}>
+    <.button style="background: #5a7191; margin-left: 25px;
+  width: 11pc; border-radius:50px;">Room Activities</.button>
+  </.link>
   <:actions>
+      <%= if @current_user.role == "Admin" do %>
     <.link patch={~p"/rooms/new"}>
       <.button>New Room</.button>
     </.link>
+      <% end %>
   </:actions>
 </.header>
 

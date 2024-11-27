@@ -8,7 +8,9 @@ defmodule Ucl.Activities.Activity do
     field :stop_time, :naive_datetime
     field :type, :string
     field :room_id, :id
-    field :user_id, :id
+
+
+    belongs_to :user, Ucl.Accounts.User
 
     timestamps(type: :utc_datetime)
   end

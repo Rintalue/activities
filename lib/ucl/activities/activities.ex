@@ -5,7 +5,6 @@ defmodule Ucl.Activities.Activities do
 
   import Ecto.Query, warn: false
   alias Ucl.Repo
-
   alias Ucl.Activities.Activity
 
   @doc """
@@ -20,6 +19,16 @@ defmodule Ucl.Activities.Activities do
   def list_activities do
     Repo.all(Activity)
   end
+  def list_activities_by_room(room_id) do
+    from(a in Ucl.Activities.Activity,
+      join: u in assoc(a, :user),
+      where: a.room_id == ^room_id,
+      preload: [user: u]
+    )
+    |> Repo.all()
+  end
+
+
 
   @doc """
   Gets a single activity.
