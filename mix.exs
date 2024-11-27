@@ -61,6 +61,7 @@ defmodule Ucl.MixProject do
       {:bandit, "~> 1.5"},
     {:myxql, "~> 0.6"},
     {:bcrypt_elixir, "~> 3.0"},
+    {:csv, "3.2.1"}
   ]
   end
 

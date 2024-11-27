@@ -64,6 +64,7 @@ defmodule UclWeb.Router do
     end
 
     post "/users/log_in", UserSessionController, :create
+
   end
 
   scope "/", UclWeb do
@@ -92,6 +93,7 @@ defmodule UclWeb.Router do
       live "/users/:id/edit", UserLive.Index, :edit
 
       live "/room/reports", RoomReportLive.Index, :index
+      get "/room_report/download/:room_id", ReportController, :download_report
 
     end
   end

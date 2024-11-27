@@ -43,6 +43,9 @@
     <span class="text-gray-500 text-2xl font-bold">
       Total Activities: <%= @total_activities %>
     </span>
+     <%= if @room_id do %>
+  <a href={~p"/room_report/download/#{@room_id}"}>Download Report</a>
+<% end %>
    <.table id="activity-table" rows={@activity_data.report_activities}>
   <:col :let={activity} label="First Name"><%= activity.first_name %></:col>
   <:col :let={activity} label="Second Name"><%= activity.second_name %></:col>
