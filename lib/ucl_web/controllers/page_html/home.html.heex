@@ -11,26 +11,77 @@
     />
     <link phx-track-static rel="stylesheet" href={~p"/assets/app.css"} />
   
+
+   <style>
+     .view-buttons {
+        display: flex;
+        gap: 15px; 
+        margin-bottom: 20px; 
+      }
+
+      .admin-buttons, .user-buttons {
+        display: none;
+      }
+
+      .active {
+        display: block;
+      }
+
+      .buttons a {
+        margin: 10px;
+      }
+    </style>
   </head>
 
   <body>
     <div class="container-l">
-     <div class="container">
-      <img src= "/images/ucl.png"/>
-      <h1>Welcome to UCL!</h1>
-     
-      <div class="buttons">
-        <a href="/users" class="button">
-          <i class="fa fa-users"></i> Users
-        </a>
-        <a href="/rooms" class="button">
-          <i class="fa fa-door-open"></i> Rooms
-        </a>
-        <a href="/activities" class="button">
-          <i class="fa fa-tasks"></i> Activity
-        </a>
+      <div class="container">
+        <img src="/images/ucl.png" />
+        <h1>Welcome to UCL!</h1>
+
+        <!-- Buttons to choose user/admin view -->
+        <div class="view-buttons">
+          <button onclick="showAdmin()" class="button">Admin</button>
+          <button onclick="showUser()" class="button">User</button>
+        </div>
+
+        <!-- Admin View -->
+        <div class="admin-buttons">
+          <div class="buttons">
+            <a href="/users" class="button">
+              <i class="fa fa-users"></i> Users
+            </a>
+            <a href="/rooms" class="button">
+              <i class="fa fa-door-open"></i> Rooms
+            </a>
+            <a href="/activities" class="button">
+              <i class="fa fa-tasks"></i> Activity
+            </a>
+          </div>
+        </div>
+
+        <!-- User View -->
+        <div class="user-buttons">
+          <div class="buttons">
+            <a href="user/activities" class="button">
+              <i class="fa fa-tasks"></i> Choose Operation
+            </a>
+          </div>
+        </div>
       </div>
     </div>
-    </div>
+
+    <script>
+      function showAdmin() {
+        document.querySelector('.admin-buttons').classList.add('active');
+        document.querySelector('.user-buttons').classList.remove('active');
+        
+      }
+
+      function showUser() {
+        document.querySelector('.user-buttons').classList.add('active');
+        document.querySelector('.admin-buttons').classList.remove('active');
+      }
+    </script>
   </body>
 </html>

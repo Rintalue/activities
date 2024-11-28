@@ -73,6 +73,23 @@
     height:8pc;
    
     }
+    .button1 {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 10px;
+      margin-bottom: 20px; 
+      padding: 20px 40px; 
+      font-size: 1.5rem; 
+      font-weight: bold;
+      text-decoration: none;
+      color: #fff;
+      background: linear-gradient(45deg, #6a67ce, #8e94fb);
+      border-radius: 12px; 
+      border: 1px solid #56ae91;
+      box-shadow: 0px 8px 15px rgba(0, 0, 0, 0.3); 
+      transition: all 0.3s ease-in-out;  
+    }  
     .buttons {
         display: flex;
         flex-wrap: wrap;

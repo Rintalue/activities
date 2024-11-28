@@ -95,6 +95,13 @@ defmodule UclWeb.Router do
       live "/room/reports", RoomReportLive.Index, :index
       get "/room_report/download/:room_id", ReportController, :download_report
 
+      live "user/activities", UserSideLive.Index, :index
+      live "/activity/new",  UserSideLive.Index, :new
+      live "/activity/:id/edit", UserSideLive.Index, :edit
+      live "/activity/:id", UserSideLive.Show, :show
+      live "/activity/:id/show/edit",UserSideLive.Show, :edit
+
+
     end
   end
 

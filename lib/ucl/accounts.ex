@@ -42,9 +42,9 @@ defmodule Ucl.Accounts do
       nil
 
   """
-  def get_user_by_email_and_password(email, password)
-      when is_binary(email) and is_binary(password) do
-    user = Repo.get_by(User, email: email)
+  def get_user_by_email_and_password(emp_id, password)
+      when is_binary(emp_id) and is_binary(password) do
+    user = Repo.get_by(User, emp_id: emp_id)
     if User.valid_password?(user, password), do: user
   end
 

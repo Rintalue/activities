@@ -1,4 +1,4 @@
-defmodule UclWeb.ActivityLive.FormComponent do
+defmodule UclWeb.UserSideLive.FormComponent do
   use UclWeb, :live_component
 
   alias Ucl.Activities.Activities

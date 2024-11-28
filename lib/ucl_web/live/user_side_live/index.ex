@@ -1,5 +1,5 @@
-defmodule UclWeb.ActivityLive.Index do
-  use UclWeb, :live_view_ucl
+defmodule UclWeb.UserSideLive.Index do
+  use UclWeb, :live_view_auth
 
   alias Ucl.Activities.Activities
   alias Ucl.Activities.Activity
@@ -36,10 +36,10 @@ defmodule UclWeb.ActivityLive.Index do
 
   @impl true
   @spec handle_info(
-          {UclWeb.ActivityLive.FormComponent, {:saved, any()}},
+          {UclWeb.UserSideLive.FormComponent, {:saved, any()}},
           Phoenix.LiveView.Socket.t()
         ) :: {:noreply, Phoenix.LiveView.Socket.t()}
-  def handle_info({UclWeb.ActivityLive.FormComponent, {:saved, activity}}, socket) do
+  def handle_info({UclWeb.UserSideLive.FormComponent, {:saved, activity}}, socket) do
     {:noreply, stream_insert(socket, :activities, activity)}
   end
 

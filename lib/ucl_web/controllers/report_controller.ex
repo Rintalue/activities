@@ -18,7 +18,6 @@ defmodule UclWeb.ReportController do
   end
 
   defp generate_csv(activities) do
-    # Define CSV headers
     headers = ["First Name", "Second Name", "Employee ID", "Type", "Room", "Start Time", "Stop Time"]
 
     # Convert activities into CSV rows
@@ -33,10 +32,8 @@ defmodule UclWeb.ReportController do
         activity.stop_time
       ]
     end)
-
-    # Combine headers and rows into one list
+   # Combine headers and rows into one list
     all_data = [headers | rows]
-
 
     all_data
     |> CSV.encode()
