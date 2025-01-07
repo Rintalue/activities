@@ -1,46 +1,85 @@
 <.header>
-  Logs
+
   <:actions>
-    <.link patch={~p"/activity/new"}>
-      <.button>New Log</.button>
+  <.link patch={~p"/"}>
+      <i class="fa fa-arrow-left"></i>
+     
     </.link>
+  <div style=" display: flex;
+        gap: 15px; 
+        margin-bottom: 
+        20px;
+        ">
+        <%= if @current_user do %>
+ 
+    <%else %>
+     <.link patch={~p"/user/activities/new"}>
+
+      <.button class="button">New Operation</.button>
+    </.link>
+    <%end %>
+    </div>
   </:actions>
 </.header>
+<div class="activity-cards-container">
+  <%= for {_id, activity} <- @streams.activities do %>
+    <div class="activity-card" id={"activity-#{activity.id}"}>
+      <div class="activity-card-header">
+        <h3><%= activity.type %></h3>
+      </div>
+      <div class="activity-card-body">
 
-<.table
-  id="activities"
-  rows={@streams.activities}
-  row_click={fn {_id, activity} -> JS.navigate(~p"/activities/#{activity}") end}
->
-  <:col :let={{_id, activity}} label="Activity Type"><%= activity.type %></:col>
-  <:col :let={{_id, activity}} label="Start time"><%= activity.start_time %></:col>
-  <:col :let={{_id, activity}} label="Stop time"><%= activity.stop_time %></:col>
-  <:col :let={{_id, activity}} label="Description"><%= activity.product_batch %></:col>
-   <:col :let={{_id, activity}} label="Room"><%= activity.room_id %></:col>
-  <:action :let={{_id, activity}}>
-    <div class="sr-only">
-      <.link navigate={~p"/activity/#{activity}"}>Show</.link>
+     
+
+        <%= if activity.room_id do %>
+          <p><strong>Room:</strong> <%= activity.room_id %></p>
+        <% end %>
+
+        <%= if activity.start_time do %>
+          <p><strong>Start Time:</strong> <%= activity.start_time %></p>
+        <% end %>
+
+        <%= if activity.stop_time do %>
+          <p><strong>Stop Time:</strong> <%= activity.stop_time %> </p>
+        <% end %>
+
+        <%= if activity.duration do %>
+          <p><strong>Duration:</strong> <%= activity.duration %> Minutes</p>
+        <% end %>
+
+        <%= if activity.batch_number do %>
+          <p><strong>Batch Number:</strong> <%= activity.batch_number %></p>
+        <% end %>
+
+        <%= if activity.product_id do %>
+          <p><strong>Product ID:</strong> <%= activity.product_id %></p>
+        <% end %>
+      </div>
+     <div class="activity-card-footer">
+  <.link
+    phx-click="stop_activity"
+    phx-value-id={activity.id}
+    class="view-link"
+  >
+    STOP
+  </.link>
+</div>
+
     </div>
-    <.link patch={~p"/activity/#{activity}/edit"}>Edit</.link>
-  </:action>
-  <:action :let={{id, activity}}>
-    <.link
-      phx-click={JS.push("delete", value: %{id: activity.id}) |> hide("##{id}")}
-      data-confirm="Are you sure?"
-    >
-      Delete
-    </.link>
-  </:action>
-</.table>
+  <% end %>
+</div>
 
-<.modal :if={@live_action in [:new, :edit]} id="activity-modal" show on_cancel={JS.patch(~p"/user/activities")}>
+<.modal  :if={@live_action == :new}
+id="activity-form2"
+show on_cancel={JS.patch(~p"/user/activities")}> 
   <.live_component
     module={UclWeb.UserSideLive.FormComponent}
-    id={@activity.id || :new}
+    id={:new}
     title={@page_title}
     action={@live_action}
     activity={@activity}
-     current_user={@current_user}
+    current_user={@current_user}
     patch={~p"/user/activities"}
   />
 </.modal>
+

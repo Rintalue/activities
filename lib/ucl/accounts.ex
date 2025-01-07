@@ -11,6 +11,9 @@ defmodule Ucl.Accounts do
   def list_users do
     Repo.all(User)
   end
+  def get_user(user_id) do
+    Repo.get(User, user_id)
+  end
 
   ## Database getters
 
@@ -28,6 +31,10 @@ defmodule Ucl.Accounts do
   """
   def get_user_by_email(email) when is_binary(email) do
     Repo.get_by(User, email: email)
+  end
+
+  def get_user_by_emp_id(emp_id) when is_binary(emp_id) do
+    Repo.get_by(User, emp_id: emp_id)
   end
 
   @doc """

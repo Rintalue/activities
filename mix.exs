@@ -5,7 +5,7 @@ defmodule Ucl.MixProject do
     [
       app: :ucl,
       version: "0.1.0",
-      elixir: "~> 1.14",
+      elixir: "~> 1.17.3",
       elixirc_paths: elixirc_paths(Mix.env()),
       start_permanent: Mix.env() == :prod,
       aliases: aliases(),
@@ -39,7 +39,7 @@ defmodule Ucl.MixProject do
       {:phoenix_html, "~> 4.1"},
       {:phoenix_live_reload, "~> 1.2", only: :dev},
       # TODO bump on release to {:phoenix_live_view, "~> 1.0.0"},
-      {:phoenix_live_view, "~> 1.0.0-rc.1", override: true},
+      {:phoenix_live_view, "~> 1.0.0"},
       {:floki, ">= 0.30.0", only: :test},
       {:phoenix_live_dashboard, "~> 0.8.3"},
       {:esbuild, "~> 0.8", runtime: Mix.env() == :dev},
@@ -61,7 +61,8 @@ defmodule Ucl.MixProject do
       {:bandit, "~> 1.5"},
     {:myxql, "~> 0.6"},
     {:bcrypt_elixir, "~> 3.0"},
-    {:csv, "3.2.1"}
+    {:csv, "~> 3.2"},
+    {:timex, "~> 3.0"}
   ]
   end
 

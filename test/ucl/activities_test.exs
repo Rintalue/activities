@@ -8,7 +8,7 @@ defmodule Ucl.ActivitiesTest do
 
     import Ucl.ActivitiesFixtures
 
-    @invalid_attrs %{product_batch: nil, start_time: nil, stop_time: nil, type: nil}
+    @invalid_attrs %{batch_number: nil, start_time: nil, stop_time: nil, type: nil}
 
     test "list_activities/0 returns all activities" do
       activity = activity_fixture()
@@ -21,10 +21,10 @@ defmodule Ucl.ActivitiesTest do
     end
 
     test "create_activity/1 with valid data creates a activity" do
-      valid_attrs = %{product_batch: "some product_batch", start_time: ~N[2024-11-19 11:55:00], stop_time: ~N[2024-11-19 11:55:00], type: "some type"}
+      valid_attrs = %{batch_number: "some product_batch", start_time: ~N[2024-11-19 11:55:00], stop_time: ~N[2024-11-19 11:55:00], type: "some type"}
 
       assert {:ok, %Activity{} = activity} = Activities.create_activity(valid_attrs)
-      assert activity.product_batch == "some product_batch"
+      assert activity.batch_number == "some product_batch"
       assert activity.start_time == ~N[2024-11-19 11:55:00]
       assert activity.stop_time == ~N[2024-11-19 11:55:00]
       assert activity.type == "some type"
@@ -36,10 +36,10 @@ defmodule Ucl.ActivitiesTest do
 
     test "update_activity/2 with valid data updates the activity" do
       activity = activity_fixture()
-      update_attrs = %{product_batch: "some updated product_batch", start_time: ~N[2024-11-20 11:55:00], stop_time: ~N[2024-11-20 11:55:00], type: "some updated type"}
+      update_attrs = %{batch_number: "some updated product_batch", start_time: ~N[2024-11-20 11:55:00], stop_time: ~N[2024-11-20 11:55:00], type: "some updated type"}
 
       assert {:ok, %Activity{} = activity} = Activities.update_activity(activity, update_attrs)
-      assert activity.product_batch == "some updated product_batch"
+      assert activity.batch_number == "some updated product_batch"
       assert activity.start_time == ~N[2024-11-20 11:55:00]
       assert activity.stop_time == ~N[2024-11-20 11:55:00]
       assert activity.type == "some updated type"

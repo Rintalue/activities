@@ -11,7 +11,7 @@ defmodule Ucl.ActivitiesFixtures do
     {:ok, activity} =
       attrs
       |> Enum.into(%{
-        product_batch: "some product_batch",
+        batch_number: "some product_batch",
         start_time: ~N[2024-11-19 11:55:00],
         stop_time: ~N[2024-11-19 11:55:00],
         type: "some type"

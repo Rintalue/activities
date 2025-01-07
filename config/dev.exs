@@ -3,7 +3,7 @@ import Config
 # Configure your database
 config :ucl, Ucl.Repo,
   username: "root",
-  password: "[12345]",
+  password: "Luerin@5700",
   hostname: "localhost",
   database: "ucl_dev",
   stacktrace: true,

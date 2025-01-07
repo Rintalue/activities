@@ -4,13 +4,12 @@ defmodule UclWeb.ReportController do
   alias Ucl.Rooms.Rooms
 
   def download_report(conn, %{"room_id" => room_id}) do
-    # Fetch activities for the room
+
     activities = Activities.list_activities_by_room(room_id)
 
-    # Generate CSV data
     csv_data = generate_csv(activities)
 
-    # Send CSV as a download
+
     conn
     |> put_resp_content_type("text/csv")
     |> put_resp_header("content-disposition", "attachment; filename=room_#{room_id}_report.csv")
@@ -20,7 +19,7 @@ defmodule UclWeb.ReportController do
   defp generate_csv(activities) do
     headers = ["First Name", "Second Name", "Employee ID", "Type", "Room", "Start Time", "Stop Time"]
 
-    # Convert activities into CSV rows
+
     rows = Enum.map(activities, fn activity ->
       [
         activity.user.first_name,
@@ -32,7 +31,7 @@ defmodule UclWeb.ReportController do
         activity.stop_time
       ]
     end)
-   # Combine headers and rows into one list
+
     all_data = [headers | rows]
 
     all_data

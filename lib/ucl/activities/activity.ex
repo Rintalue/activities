@@ -3,7 +3,9 @@ defmodule Ucl.Activities.Activity do
   import Ecto.Changeset
 
   schema "activities" do
-    field :product_batch, :string
+    field :batch_number, :string
+    field :product_id, :string
+    field :duration, :integer
     field :start_time, :naive_datetime
     field :stop_time, :naive_datetime
     field :type, :string
@@ -18,7 +20,7 @@ defmodule Ucl.Activities.Activity do
   @doc false
   def changeset(activity, attrs) do
     activity
-    |> cast(attrs, [:type, :start_time, :stop_time, :product_batch, :room_id, :user_id])
-    |> validate_required([:type, :start_time, :product_batch])
+    |> cast(attrs, [:type, :start_time, :stop_time, :batch_number, :product_id, :room_id, :user_id, :duration])
+    |> validate_required([:type, :start_time])
   end
 end

@@ -4,9 +4,9 @@ defmodule UclWeb.ActivityLiveTest do
   import Phoenix.LiveViewTest
   import Ucl.ActivitiesFixtures
 
-  @create_attrs %{product_batch: "some product_batch", start_time: "2024-11-19T11:55:00", stop_time: "2024-11-19T11:55:00", type: "some type"}
-  @update_attrs %{product_batch: "some updated product_batch", start_time: "2024-11-20T11:55:00", stop_time: "2024-11-20T11:55:00", type: "some updated type"}
-  @invalid_attrs %{product_batch: nil, start_time: nil, stop_time: nil, type: nil}
+  @create_attrs %{batch_number: "some product_batch", start_time: "2024-11-19T11:55:00", stop_time: "2024-11-19T11:55:00", type: "some type"}
+  @update_attrs %{batch_number: "some updated product_batch", start_time: "2024-11-20T11:55:00", stop_time: "2024-11-20T11:55:00", type: "some updated type"}
+  @invalid_attrs %{batch_number: nil, start_time: nil, stop_time: nil, type: nil}
 
   defp create_activity(_) do
     activity = activity_fixture()
@@ -20,7 +20,7 @@ defmodule UclWeb.ActivityLiveTest do
       {:ok, _index_live, html} = live(conn, ~p"/activities")
 
       assert html =~ "Listing Activities"
-      assert html =~ activity.product_batch
+      assert html =~ activity.batch_number
     end
 
     test "saves new activity", %{conn: conn} do
@@ -43,7 +43,7 @@ defmodule UclWeb.ActivityLiveTest do
 
       html = render(index_live)
       assert html =~ "Activity created successfully"
-      assert html =~ "some product_batch"
+      assert html =~ "some batch_number"
     end
 
     test "updates activity in listing", %{conn: conn, activity: activity} do
@@ -84,7 +84,7 @@ defmodule UclWeb.ActivityLiveTest do
       {:ok, _show_live, html} = live(conn, ~p"/activities/#{activity}")
 
       assert html =~ "Show Activity"
-      assert html =~ activity.product_batch
+      assert html =~ activity.batch_number
     end
 
     test "updates activity within modal", %{conn: conn, activity: activity} do

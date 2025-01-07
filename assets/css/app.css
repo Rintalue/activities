@@ -98,7 +98,7 @@
         margin-top: 50px;
         }
     
-  .button:hover {
+  .button:hover, .view-link:hover {
     background: linear-gradient(45deg, #ffe066, #ffd966);
     color: #4e54c8;
     transform: translateY(-5px) scale(1.05);
@@ -181,3 +181,101 @@
 }
 
 
+.activity-cards-container {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr); 
+  gap: 20px;
+  padding: 20px;
+  background-color: #a4a8f2;; 
+}
+
+
+.activity-card {
+  background: #fff;
+  border-radius: 12px;
+  box-shadow: 0 6px 12px rgba(0, 0, 0, 0.1); /* Slightly stronger shadow */
+  overflow: hidden;
+  transition: transform 0.3s ease, box-shadow 0.3s ease; /* Smooth transition */
+  display: flex;
+  flex-direction: column;
+}
+
+/* Hover effect */
+.activity-card:hover {
+  transform: translateY(-8px);
+  box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1); 
+}
+
+/* Header of the card */
+.activity-card-header {
+  background: #2068b5;
+  color: white;
+  padding: 16px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  border-bottom: 2px solid #f4f4f4;
+}
+
+.activity-card-header h3 {
+  margin: 0;
+  font-size: 1.25rem;
+  font-weight: bold;
+  text-transform: capitalize;
+}
+
+
+/* Body of the card */
+.activity-card-body {
+  padding: 16px;
+  font-size: 1rem;
+  color: #333;
+}
+
+.activity-card-body p {
+  margin: 8px 0;
+}
+
+/* Footer of the card */
+.activity-card-footer {
+  background: #f9f9f9;
+  padding: 12px;
+  display: flex;
+  justify-content: center;
+  border-top: 1px solid #ddd;
+}
+
+.view-link {
+  font-weight: bold;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px; 
+  padding: 20px 40px; 
+  font-size: 1.5rem; 
+  font-weight: bold;
+  text-decoration: none;
+  color: #fff;
+  background: linear-gradient(45deg, #6a67ce, #8e94fb);
+  border-radius: 12px; 
+  border: 1px solid #56ae91;
+  width: 13pc;
+  box-shadow: 0px 8px 15px rgba(0, 0, 0, 0.3); 
+  transition: all 0.3s ease-in-out;
+  height:3pc;
+}
+
+.view-link:hover {
+  text-decoration: underline;
+}
+@media (max-width: 480px) {
+  .activity-cards-container {
+    grid-template-columns: 1fr;
+  }
+
+  .button {
+    font-size: 1rem;
+    padding: 10px 15px;
+    width: 100%; 
+  }
+}

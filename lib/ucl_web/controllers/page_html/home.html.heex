@@ -2,6 +2,7 @@
 <html lang="en">
   <head>
     <meta charset="UTF-8" />
+    <meta name="csrf-token" content={get_csrf_token()} />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>UCL</title>
     <!-- Stylesheets -->
@@ -10,7 +11,7 @@
       href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css"
     />
     <link phx-track-static rel="stylesheet" href={~p"/assets/app.css"} />
-  
+   <link rel="stylesheet" href={~p"/assets/app.css"} />
 
    <style>
      .view-buttons {
@@ -34,19 +35,42 @@
   </head>
 
   <body>
+  
     <div class="container-l">
+    
       <div class="container">
+
+       
+
+        
         <img src="/images/ucl.png" />
         <h1>Welcome to UCL!</h1>
-
+         
         <!-- Buttons to choose user/admin view -->
         <div class="view-buttons">
+         
           <button onclick="showAdmin()" class="button">Admin</button>
           <button onclick="showUser()" class="button">User</button>
         </div>
 
         <!-- Admin View -->
+      
         <div class="admin-buttons">
+           <%= if @current_user do %>
+           <a href="/">
+              <i class="fa fa-arrow-left"></i> 
+            </a>
+ <.link
+              href={~p"/users/log_out"}
+              method="delete"
+              class=" items-center text-black hover:text-red-600 text-lg"
+            >
+              <i class="fa fa-sign-out-alt mr-3"></i>
+              Log Out
+            </.link>
+            <%end %>
+          
+           
           <div class="buttons">
             <a href="/users" class="button">
               <i class="fa fa-users"></i> Users
@@ -57,15 +81,28 @@
             <a href="/activities" class="button">
               <i class="fa fa-tasks"></i> Activity
             </a>
+            
           </div>
         </div>
 
         <!-- User View -->
         <div class="user-buttons">
+                  <a href="/">
+              <i class="fa fa-arrow-left"></i> 
+            </a>
           <div class="buttons">
-            <a href="user/activities" class="button">
+            <a href="/user/activities/new" class="button">
               <i class="fa fa-tasks"></i> Choose Operation
             </a>
+                <%= if !@current_user do %>
+            <a href="/users/log_in" class="button">
+              <i class="fa fa-user"></i> Log In
+            </a>
+            <%else %>
+            <a href="/users/log_out" class="button">
+              <i class="fa fa-user"></i> Log Out
+                </a>
+            <%end %>
           </div>
         </div>
       </div>
@@ -75,13 +112,15 @@
       function showAdmin() {
         document.querySelector('.admin-buttons').classList.add('active');
         document.querySelector('.user-buttons').classList.remove('active');
-        
+           document.querySelector('.view-buttons').classList.add('hidden');
       }
 
       function showUser() {
         document.querySelector('.user-buttons').classList.add('active');
         document.querySelector('.admin-buttons').classList.remove('active');
+           document.querySelector('.view-buttons').classList.add('hidden');
       }
     </script>
+    
   </body>
 </html>

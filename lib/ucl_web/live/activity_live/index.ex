@@ -7,6 +7,11 @@ defmodule UclWeb.ActivityLive.Index do
 
   @impl true
   def mount(_params, _session, socket) do
+    if connected?(socket) do
+      IO.inspect(socket, label: "Socket is connected")
+    else
+      IO.inspect(socket, label: "Socket is not connected yet")
+    end
     IO.inspect(socket, label: "Socket")
     {:ok, stream(socket, :activities, Activities.list_activities())}
   end
@@ -23,8 +28,10 @@ defmodule UclWeb.ActivityLive.Index do
   end
 
   defp apply_action(socket, :new, _params) do
+    IO.inspect(socket, label: "Socket in :new")
     socket
     |> assign(:page_title, "New Log")
+
     |> assign(:activity, %Activity{})
   end
 

@@ -4,6 +4,7 @@ defmodule UclWeb.Router do
 
   import UclWeb.UserAuth
 
+
   pipeline :browser do
     plug :accepts, ["html"]
     plug :fetch_session
@@ -17,11 +18,16 @@ defmodule UclWeb.Router do
   pipeline :api do
     plug :accepts, ["json"]
   end
-
+  pipeline :check_user_id do
+    plug UclWeb.CheckUserId
+  end
   scope "/", UclWeb do
     pipe_through :browser
 
     get "/", PageController, :home
+
+
+
 
 
   end
@@ -57,6 +63,7 @@ defmodule UclWeb.Router do
       on_mount: [{UclWeb.UserAuth, :redirect_if_user_is_authenticated}] do
       live "/users/register", UserRegistrationLive, :new
       live "/users/log_in", UserLoginLive, :new
+      live "/login", UserAuthLive,  :new
       live "/users/reset_password", UserForgotPasswordLive, :new
       live "/users/reset_password/:token", UserResetPasswordLive, :edit
 
@@ -64,11 +71,15 @@ defmodule UclWeb.Router do
     end
 
     post "/users/log_in", UserSessionController, :create
+    post "/login", UserAuthController, :create
+
+
+
 
   end
 
   scope "/", UclWeb do
-    pipe_through [:browser, :require_authenticated_user]
+    pipe_through [:browser, :require_authenticated_user, :check_user_id]
 
     live_session :require_authenticated_user,
       on_mount: [{UclWeb.UserAuth, :ensure_authenticated}] do
@@ -95,23 +106,28 @@ defmodule UclWeb.Router do
       live "/room/reports", RoomReportLive.Index, :index
       get "/room_report/download/:room_id", ReportController, :download_report
 
-      live "user/activities", UserSideLive.Index, :index
-      live "/activity/new",  UserSideLive.Index, :new
-      live "/activity/:id/edit", UserSideLive.Index, :edit
-      live "/activity/:id", UserSideLive.Show, :show
-      live "/activity/:id/show/edit",UserSideLive.Show, :edit
 
 
     end
   end
 
+
   scope "/", UclWeb do
     pipe_through [:browser]
 
     delete "/users/log_out", UserSessionController, :delete
+    get "/users/log_out", UserSessionController, :delete
+
+
 
     live_session :current_user,
       on_mount: [{UclWeb.UserAuth, :mount_current_user}] do
+
+        live "/user/activities", UserSideLive.Index, :index
+      live "/user/activities/new", UserSideLive.Index, :new
+      live "/user/activities/:id/edit", UserSideLive.Index, :edit
+
+
       live "/users/confirm/:token", UserConfirmationLive, :edit
       live "/users/confirm", UserConfirmationInstructionsLive, :new
     end

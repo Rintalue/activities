@@ -27,7 +27,11 @@ defmodule Ucl.Activities.Activities do
     )
     |> Repo.all()
   end
-
+  def list_activities_for_user(user_id) do
+    Activity
+    |> where([a], a.user_id == ^user_id)
+    |> Repo.all()
+  end
 
 
   @doc """

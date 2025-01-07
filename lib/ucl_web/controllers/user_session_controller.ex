@@ -9,7 +9,7 @@ defmodule UclWeb.UserSessionController do
     {:ok, user} ->
       UserAuth.log_in_user(conn, user, params["user"])
       |> put_flash(:info, "Account created successfully!")
-
+      |> redirect(to: params["return_to"])
 
     {:error, changeset} ->
       put_flash(conn, :error, "Failed to create account")
@@ -35,6 +35,8 @@ end
       conn
       |> put_flash(:info, info)
       |> UserAuth.log_in_user(user, user_params)
+
+
     else
       # In order to prevent user enumeration attacks, don't disclose whether the email is registered.
       conn
@@ -49,4 +51,11 @@ end
     |> put_flash(:info, "Logged out successfully.")
     |> UserAuth.log_out_user()
   end
+  def logout(conn, _params) do
+    conn
+    |> put_flash(:info, "Logged out successfully.")
+    |> configure_session(drop: true)
+    |> redirect(to: "/")
+  end
+
 end

@@ -4,6 +4,8 @@ defmodule UclWeb.UserAuth do
   import Plug.Conn
   import Phoenix.Controller
 
+
+  require Phoenix.LiveView
   alias Ucl.Accounts
 
   # Make the remember me cookie valid for 60 days.
@@ -35,6 +37,9 @@ defmodule UclWeb.UserAuth do
     |> maybe_write_remember_me_cookie(token, params)
     |> redirect(to: user_return_to || signed_in_path(conn))
   end
+
+
+
 
   defp maybe_write_remember_me_cookie(conn, token, %{"remember_me" => "true"}) do
     put_resp_cookie(conn, @remember_me_cookie, token, @remember_me_options)
