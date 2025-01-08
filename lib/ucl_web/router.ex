@@ -1,4 +1,5 @@
 defmodule UclWeb.Router do
+  alias UclWeb.UserStopLive
   alias UclWeb.RoomReportLive
   use UclWeb, :router
 
@@ -25,6 +26,7 @@ defmodule UclWeb.Router do
     pipe_through :browser
 
     get "/", PageController, :home
+
 
 
 
@@ -64,6 +66,7 @@ defmodule UclWeb.Router do
       live "/users/register", UserRegistrationLive, :new
       live "/users/log_in", UserLoginLive, :new
       live "/login", UserAuthLive,  :new
+      live "/stop", UserStopLive , :new
       live "/users/reset_password", UserForgotPasswordLive, :new
       live "/users/reset_password/:token", UserResetPasswordLive, :edit
 
@@ -71,7 +74,6 @@ defmodule UclWeb.Router do
     end
 
     post "/users/log_in", UserSessionController, :create
-    post "/login", UserAuthController, :create
 
 
 
@@ -117,7 +119,6 @@ defmodule UclWeb.Router do
 
     delete "/users/log_out", UserSessionController, :delete
     get "/users/log_out", UserSessionController, :delete
-
 
 
     live_session :current_user,

@@ -3,6 +3,7 @@ defmodule UclWeb.UserSideLive.FormComponent do
 
   alias Ucl.Activities.Activities
 
+
   @impl true
   def render(assigns) do
     ~H"""
@@ -16,7 +17,7 @@ defmodule UclWeb.UserSideLive.FormComponent do
         phx-submit="save"
       >
 
-        <%= if is_nil(@room_selected) and is_nil(@start_time) do %>
+        <%= if is_nil(@room_selected) do %>
 
             <.input
               field={@form[:room_id]}
@@ -25,12 +26,12 @@ defmodule UclWeb.UserSideLive.FormComponent do
               options={@rooms}
               prompt="Choose room"
               phx-change="room_selected"
-               style="padding: 10px; border-radius: 5px; background-color: #f0f0f0; border: 1px solid #ccc; font-size: 16px;"
+               style="padding: 10px; border-radius: 5px; background-color: #f1f1f1; border: 1px solid #ccc; font-size: 16px;"
             />
 
         <% end %>
 
-        <%= if !@type_selected and is_nil(@start_time) and @room_selected do %>
+        <%= if !@type_selected  and @room_selected do %>
 
             <.input
               field={@form[:type]}
@@ -182,13 +183,25 @@ defmodule UclWeb.UserSideLive.FormComponent do
       room_selected = socket.assigns.room_selected
       type_selected = socket.assigns.type_selected
       sub_type_selected = socket.assigns.sub_type_selected
+      batch_number = if type_selected == "Maintenance", do: activity_params["batch_number"], else: nil
+      product_id = if type_selected == "Maintenance", do: activity_params["product_id"], else: nil
+
+      params = %{
+        room_id: room_selected,
+        type_selected: type_selected,
+        sub_type_selected: sub_type_selected,
+        batch_number: batch_number,
+        product_id: product_id
+      }
+
+      IO.inspect(params, label: "Redirect Params")
+
 
     {:noreply,
     socket
-    |> put_flash(:info, "Please log in to start the activity.")
-    |> redirect(to: "/login?room_id=#{room_selected}&type_selected=#{type_selected}&sub_type_selected=#{sub_type_selected}")
-}
- end
+    |> put_flash(:params, params)
+ |> redirect(to: "/login")}
+    end
 end
 
 

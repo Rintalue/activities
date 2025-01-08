@@ -17,7 +17,7 @@ defmodule UclWeb.ReportController do
   end
 
   defp generate_csv(activities) do
-    headers = ["First Name", "Second Name", "Employee ID", "Type", "Room", "Start Time", "Stop Time"]
+    headers = ["First Name", "Second Name", "Employee ID", "Type", "Room", "Start Time", "Stop Time", "Duration in Minutes", "Batch Number", "Product ID"]
 
 
     rows = Enum.map(activities, fn activity ->
@@ -28,7 +28,10 @@ defmodule UclWeb.ReportController do
         activity.type,
         Rooms.get_room_name(activity.room_id).name,
         activity.start_time,
-        activity.stop_time
+        activity.stop_time,
+        activity.duration,
+        activity.batch_number,
+        activity.product_id
       ]
     end)
 

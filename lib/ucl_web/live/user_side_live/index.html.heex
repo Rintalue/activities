@@ -13,49 +13,19 @@
         <%= if @current_user do %>
  
     <%else %>
-     <.link patch={~p"/user/activities/new"}>
+     <.link patch={~p"/stop"}>
 
-      <.button class="button">New Operation</.button>
+      <.button class="button">Stop Activity</.button>
     </.link>
     <%end %>
     </div>
   </:actions>
 </.header>
-<div class="activity-cards-container">
   <%= for {_id, activity} <- @streams.activities do %>
-    <div class="activity-card" id={"activity-#{activity.id}"}>
-      <div class="activity-card-header">
-        <h3><%= activity.type %></h3>
+    <div class="" id={"activity-#{activity.id}"}>
+
       </div>
-      <div class="activity-card-body">
-
-     
-
-        <%= if activity.room_id do %>
-          <p><strong>Room:</strong> <%= activity.room_id %></p>
-        <% end %>
-
-        <%= if activity.start_time do %>
-          <p><strong>Start Time:</strong> <%= activity.start_time %></p>
-        <% end %>
-
-        <%= if activity.stop_time do %>
-          <p><strong>Stop Time:</strong> <%= activity.stop_time %> </p>
-        <% end %>
-
-        <%= if activity.duration do %>
-          <p><strong>Duration:</strong> <%= activity.duration %> Minutes</p>
-        <% end %>
-
-        <%= if activity.batch_number do %>
-          <p><strong>Batch Number:</strong> <%= activity.batch_number %></p>
-        <% end %>
-
-        <%= if activity.product_id do %>
-          <p><strong>Product ID:</strong> <%= activity.product_id %></p>
-        <% end %>
-      </div>
-     <div class="activity-card-footer">
+     <div class="">
   <.link
     phx-click="stop_activity"
     phx-value-id={activity.id}
@@ -65,9 +35,8 @@
   </.link>
 </div>
 
-    </div>
   <% end %>
-</div>
+
 
 <.modal  :if={@live_action == :new}
 id="activity-form2"
@@ -82,4 +51,3 @@ show on_cancel={JS.patch(~p"/user/activities")}>
     patch={~p"/user/activities"}
   />
 </.modal>
-

@@ -7,47 +7,52 @@ defmodule UclWeb.UserAuthLive do
   @impl true
   def render(assigns) do
     ~H"""
-    <div class="mx-auto max-w-sm">
-      <.header class="text-center">
-        Log in to your account
-      </.header>
+    <div class="modal-wrapper" :if={@show_modal}>
+      <div class="modal-backdrop" phx-click="close_modal"></div>
+      <div class="modal-content">
+        <div class="mx-auto max-w-sm">
+          <.header class="text-center">
+            Log in to your account
+          </.header>
 
-      <.simple_form for={@form} id="login_form" phx-submit="login" phx-update="ignore">
-        <.input field={@form[:emp_id]} type="text" label="Employee ID" required />
-        <.input field={@form[:password]} type="password" label="Password" required />
+          <.simple_form for={@form} id="login_form" phx-submit="login" phx-update="ignore">
+            <.input field={@form[:emp_id]} type="text" label="Employee ID" required />
+            <.input field={@form[:password]} type="password" label="Password" required />
 
-        <:actions>
-          <.input field={@form[:remember_me]} type="checkbox" label="Keep me logged in" />
-          <.link href={~p"/users/reset_password"} class="text-sm font-semibold">
-            Forgot your password?
-          </.link>
-        </:actions>
 
-        <div class="flex items-center justify-between">
-          <div>
-            <%= if @room_id && @type_selected && @sub_type_selected do %>
-              <.button phx-disable-with="Logging in..." class="w-full">
-                Log in to start activity
-              </.button>
-            <% else %>
-              <.button phx-disable-with="Logging in..." class="w-full">
-                Log in
-              </.button>
-            <% end %>
-          </div>
+
+            <div class="flex items-center justify-between">
+              <div>
+
+
+                  <.button phx-disable-with="Logging in..." class="w-full">
+                    Log in
+                  </.button>
+
+              </div>
+            </div>
+          </.simple_form>
         </div>
-      </.simple_form>
+      </div>
     </div>
     """
   end
 
-  @impl true
-  def mount(params, _session, socket) do
-    IO.inspect(params, label: "params in mount")
 
-    room_selected = Map.get(params, "room_id")
-    type_selected = Map.get(params, "type_selected")
-    sub_type_selected = Map.get(params, "sub_type_selected")
+  @impl true
+  def mount(_params, _session, socket) do
+    flash = socket.assigns.flash
+    IO.inspect(flash, label: "Retrieved Flash")
+
+
+  params = Map.get(flash, "params", %{})
+  room_selected = Map.get(params, :room_id)
+  type_selected = Map.get(params, :type_selected)
+  sub_type_selected = Map.get(params, :sub_type_selected)
+  batch_number = Map.get(params, :batch_number)
+  product_id = Map.get(params, :product_id)
+
+
 
     socket =
       socket
@@ -55,6 +60,9 @@ defmodule UclWeb.UserAuthLive do
       |> assign(:room_id, room_selected)
       |> assign(:type_selected, type_selected)
       |> assign(:sub_type_selected, sub_type_selected)
+      |> assign(:batch_number, batch_number)
+      |> assign(:product_id, product_id)
+      |> assign(:show_modal, true)
 
     {:ok, socket}
   end
@@ -74,15 +82,40 @@ defmodule UclWeb.UserAuthLive do
         socket =
           socket
           |> put_flash(:info, "Activity started.")
+          |> assign(:show_modal, false)
+
           |> redirect(to: "/user/activities")
 
         {:noreply, socket}
     end
   end
 
+  @impl true
+  def handle_event("show_modal", _params, socket) do
+    {:noreply, assign(socket, :show_modal, true)}
+  end
+
+  @impl true
+  def handle_event("close_modal", _params, socket) do
+    {:noreply, assign(socket, :show_modal, false)}
+  end
+
 
   defp save_activity(socket, :new, activity_params, user_id) do
-    type = socket.assigns.sub_type_selected || socket.assigns.type_selected
+    type =
+      cond do
+        socket.assigns[:sub_type_selected] && socket.assigns[:sub_type_selected] != "" ->
+          socket.assigns[:sub_type_selected]
+
+        socket.assigns[:type_selected] && socket.assigns[:type_selected] != "" ->
+          socket.assigns[:type_selected]
+
+        true ->
+          nil
+      end
+
+    batch_number = socket.assigns.batch_number
+    product_id = socket.assigns.product_id
     room_id = socket.assigns.room_id
     current_time_naive = DateTime.utc_now()
     current_time = Timex.to_datetime(current_time_naive, "Africa/Nairobi")
@@ -92,6 +125,8 @@ defmodule UclWeb.UserAuthLive do
       |> Map.put("start_time", current_time)
       |> Map.put("room_id", room_id)
       |> Map.put("type", type)
+      |> Map.put("batch_number", batch_number)
+      |> Map.put("product_id", product_id)
 
     IO.inspect(new_activity_params, label: "New Activity Params")
 

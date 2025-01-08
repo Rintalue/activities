@@ -42,7 +42,10 @@ defmodule UclWeb.UclWeb.RoomReportLive.Index do
         type: activity.type,
         room: Ucl.Rooms.Rooms.get_room_name(activity.room_id).name,
         start_time: activity.start_time,
-        stop_time: activity.stop_time
+        stop_time: activity.stop_time,
+        duration: activity.duration,
+        batch_number: activity.batch_number,
+        product_id: activity.product_id
       }
     end)
   end

@@ -32,6 +32,10 @@ defmodule Ucl.Activities.Activities do
     |> where([a], a.user_id == ^user_id)
     |> Repo.all()
   end
+  def get_active_activity_by_emp_id(emp_id) do
+    from(a in Activity, where: a.user_id == ^emp_id and is_nil(a.stop_time))
+    |> Repo.one()
+  end
 
 
   @doc """
