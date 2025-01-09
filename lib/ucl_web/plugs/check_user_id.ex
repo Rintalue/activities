@@ -8,6 +8,7 @@ defmodule UclWeb.CheckUserId do
     def call(conn, _opts) do
       user = conn.assigns[:current_user]
 
+
       if user && user.id == 6 do
         conn
       else

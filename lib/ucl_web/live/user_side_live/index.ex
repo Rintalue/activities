@@ -49,12 +49,15 @@ defmodule UclWeb.UserSideLive.Index do
 
     stop_time = DateTime.utc_now()
     stop_time_kenya = Timex.to_datetime(stop_time, "Africa/Nairobi")
+    start_time_kenya = Timex.to_datetime(activity.start_time, "Africa/Nairobi")
 
-    duration =
-      if activity.start_time do
-        Timex.diff(activity.start_time, stop_time_kenya, :minutes)
-      else
-        0
+
+duration =
+if start_time_kenya do
+Timex.diff(stop_time_kenya, start_time_kenya, :minutes)
+else
+0
+
       end
 
     attrs = %{
@@ -64,7 +67,12 @@ defmodule UclWeb.UserSideLive.Index do
 
     case Activities.update_activity(activity, attrs) do
       {:ok, updated_activity} ->
-        {:noreply, stream_insert(socket, :activities, updated_activity)}
+        socket =
+          socket
+          |> put_flash(:info, "Activity stopped successfully.")
+          |> stream_insert(:activities, updated_activity)
+
+        {:noreply, socket}
 
       {:error, changeset} ->
         IO.inspect(changeset.errors, label: "Update Activity Errors")

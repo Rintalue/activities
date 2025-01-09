@@ -59,7 +59,7 @@ defmodule UclWeb.UclWeb.UserStopLive do
             stop_time_kenya = Timex.to_datetime(stop_time, "Africa/Nairobi")
             start_time_kenya = Timex.to_datetime(activity.start_time, "Africa/Nairobi")
 
-# Calculate the duration in minutes
+
 duration =
   if start_time_kenya do
     Timex.diff(stop_time_kenya, start_time_kenya, :minutes)
