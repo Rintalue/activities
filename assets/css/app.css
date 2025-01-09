@@ -73,6 +73,12 @@
     height:8pc;
    
     }
+
+    .view-button {
+      display: flex;
+      gap: 15px; 
+      margin-bottom: 20px; 
+    }
     .button1 {
       display: flex;
       align-items: center;
@@ -308,4 +314,10 @@
   box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
   width: 100%;
   max-width: 500px;
+}
+.option{
+  font-size: 23px;
+  color: black;
+  font-weight: bold;
+  line-height: 66px;
 }
