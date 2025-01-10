@@ -51,6 +51,7 @@ defmodule UclWeb.UserAuthLive do
   sub_type_selected = Map.get(params, :sub_type_selected)
   batch_number = Map.get(params, :batch_number)
   product_id = Map.get(params, :product_id)
+  product_description = Map.get(params, :product_description)
 
 
 
@@ -62,6 +63,7 @@ defmodule UclWeb.UserAuthLive do
       |> assign(:sub_type_selected, sub_type_selected)
       |> assign(:batch_number, batch_number)
       |> assign(:product_id, product_id)
+      |> assign(:product_description, product_description)
       |> assign(:show_modal, true)
 
     {:ok, socket}
@@ -116,6 +118,7 @@ defmodule UclWeb.UserAuthLive do
 
     batch_number = socket.assigns.batch_number
     product_id = socket.assigns.product_id
+    product_description = socket.assigns.product_description
     room_id = socket.assigns.room_id
     current_time_naive = DateTime.utc_now()
     current_time = Timex.to_datetime(current_time_naive, "Africa/Nairobi")
@@ -127,6 +130,7 @@ defmodule UclWeb.UserAuthLive do
       |> Map.put("type", type)
       |> Map.put("batch_number", batch_number)
       |> Map.put("product_id", product_id)
+      |> Map.put("product_description", product_description)
 
     IO.inspect(new_activity_params, label: "New Activity Params")
 

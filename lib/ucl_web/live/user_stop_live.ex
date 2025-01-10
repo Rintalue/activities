@@ -79,6 +79,7 @@ duration =
                   socket
                   |> put_flash(:info, "Activity stopped successfully.")
                   |> assign(:show_modal, false)
+                  |> redirect(to: "/")
 
                 {:noreply, socket}
 

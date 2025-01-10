@@ -74,11 +74,7 @@
    
     }
 
-    .view-button {
-      display: flex;
-      gap: 15px; 
-      margin-bottom: 20px; 
-    }
+    
     .button1 {
       display: flex;
       align-items: center;
@@ -137,9 +133,8 @@
 
   @media (max-width: 480px) {
     .buttons {
-      flex-direction: column;
-      width: 14pc;
-      margin-left: 1pc;
+      display: inherit;
+      width: 13pc;
     }
 
     .button {
@@ -148,6 +143,15 @@
     .container img {
       width: 100px;
       height: 100px;
+    }
+    .container-l{
+      height: 57pc;
+    }
+    .button1{
+      margin-left: -11pc;
+    }
+    .view-button{
+      display: inherit !important;
     }
   }
 /*END OF LANGING PAGE STYLING */
@@ -315,9 +319,26 @@
   width: 100%;
   max-width: 500px;
 }
-.option{
-  font-size: 23px;
-  color: black;
-  font-weight: bold;
-  line-height: 66px;
+.option {
+  font-size: 23px; 
+  color: #333; 
+  font-weight: bold; 
+  line-height: 66px; 
+  margin-bottom: 10px; 
+  text-transform: uppercase; 
+  letter-spacing: 1px; 
+  text-align: center; 
+}
+.view-button button {
+  padding: 10px;
+  border-radius: 5px;
+  border: 1px solid #ccc;
+  font-size: 16px;
+  margin: 5px;
+}
+
+.view-button {
+  display: flex; 
+  justify-content: center; 
+  gap: 10px; 
 }

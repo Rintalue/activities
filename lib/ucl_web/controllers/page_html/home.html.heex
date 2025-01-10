@@ -31,6 +31,55 @@
       .buttons a {
         margin: 10px;
       }
+
+
+  @media (max-width: 768px) {
+    .view-buttons {
+      flex-direction: column;
+      gap: 10px;
+    }
+
+    .buttons a {
+      font-size: 14px;
+      padding: 10px;
+    }
+
+    h1 {
+      font-size: 1.5rem;
+      text-align: center;
+    }
+        .buttons {
+          display:contents;
+    }
+
+    .buttons a {
+      
+      justify-content: center; 
+      width: 100%; 
+      font-size: 1rem; 
+      padding: 10px;
+    }
+  }
+
+  @media (max-width: 480px) {
+    .view-buttons {
+      gap: 5px;
+    }
+#button1, #button2{
+  font-size: 1rem;
+    padding: 10px 15px;
+    width: 13pc;
+    height: 6pc;
+}
+   
+     .buttons {
+          display:contents;
+    }
+
+    h1 {
+      font-size: 1.2rem;
+    }
+  }
     </style>
   </head>
 
@@ -46,11 +95,11 @@
         <img src="/images/ucl.png" />
         <h1>Welcome to UCL!</h1>
          
-        <!-- Buttons to choose user/admin view -->
+      
         <div class="view-buttons">
          
-          <button onclick="showAdmin()" class="button">Admin</button>
-          <button onclick="showUser()" class="button">User</button>
+          <button onclick="showAdmin()" class="button" id="button1">Admin</button>
+          <button onclick="showUser()" class="button" id="button2">User</button>
         </div>
 
         <!-- Admin View -->

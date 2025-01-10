@@ -5,6 +5,7 @@ defmodule Ucl.Activities.Activity do
   schema "activities" do
     field :batch_number, :string
     field :product_id, :string
+    field :product_description, :string
     field :duration, :integer
     field :start_time, :naive_datetime
     field :stop_time, :naive_datetime
@@ -20,7 +21,7 @@ defmodule Ucl.Activities.Activity do
   @doc false
   def changeset(activity, attrs) do
     activity
-    |> cast(attrs, [:type, :start_time, :stop_time, :batch_number, :product_id, :room_id, :user_id, :duration])
+    |> cast(attrs, [:type, :start_time, :stop_time, :batch_number, :product_id, :product_description, :room_id, :user_id, :duration])
     |> validate_required([:type, :start_time])
   end
 end

@@ -15,28 +15,29 @@ defmodule UclWeb.UserSideLive.FormComponent do
         phx-submit="save"
       >
         <%= if is_nil(@room_selected) do %>
-          <div>
-            <label class="option">Choose Room</label>
-            <div class="view-button">
-              <%= for {room_name, room_id} <- @rooms do %>
-                <button
-                  type="button"
-                  phx-click="room_selected"
-                  phx-value-room_id={room_id}
-                  class="button"
-                  phx-target={@myself}
-                  style="padding: 10px; border-radius: 5px;  border: 1px solid #ccc; font-size: 16px; margin: 5px;"
-                >
-                  {room_name}
-                </button>
-              <% end %>
-            </div>
+        <div>
+        <label class="option">
+       Choose a Room <i class="fa fa-door-open"></i>
+       </label>
+
+       <.input
+              field={@form[:room_id]}
+              type="select"
+
+              options={@rooms}
+              prompt = "choose room"
+
+
+              phx-change="room_selected"
+               style="padding: 10px; border-radius: 5px; background-color: #f0f0f0; border: 1px solid #ccc; font-size: 16px;"
+            />
+
           </div>
         <% end %>
 
         <%= if @room_selected && !@type_selected do %>
           <div>
-            <label class="option">Choose an Activity</label>
+            <label class="option">Choose an Activity <i class="fa fa-tasks"></i> </label>
             <div class="view-button">
               <%= for activity <- ["Operations", "Cleaning", "Maintenance"] do %>
                 <button
@@ -56,7 +57,7 @@ defmodule UclWeb.UserSideLive.FormComponent do
 
         <%= if @type_selected == "Cleaning" && !@sub_type_selected do %>
           <div>
-            <label class="option">Choose Cleaning Type</label>
+            <label class="option">Choose Cleaning Type <i class="fas fa-hands-wash"></i></label>
             <div class="view-button">
               <%= for sub_type <- @type_options do %>
                 <button
@@ -74,20 +75,21 @@ defmodule UclWeb.UserSideLive.FormComponent do
           </div>
         <% end %>
 
-        <%= if @type_selected == "Maintenance" do %>
+        <%= if @type_selected == "Operations" do %>
           <.input field={@form[:batch_number]} type="text" label="Batch Number" />
           <.input field={@form[:product_id]} type="text" label="Product ID" />
         <% end %>
 
-        <%= if @type_selected == "Operations" do %>
+        <%= if @type_selected == "Maintenance" do %>
           <.input
-            field={@form[:sub_type]}
-            type="hidden"
-            options={@type_options}
-            phx-change="sub_type_selected"
+            field={@form[:product_description]}
+            type="text"
+            label ="Product Description"
+
+
           />
         <% end %>
-        <input type="hidden" name="activity[room_id]" value={@room_selected} />
+
         <input type="hidden" name="activity[type]" value={@type_selected} />
         <input type="hidden" name="activity[sub_type]" value={@sub_type_selected || ""} />
 
@@ -98,7 +100,8 @@ defmodule UclWeb.UserSideLive.FormComponent do
       @type_selected,
       @sub_type_selected,
       @form[:batch_number],
-      @form[:product_id]
+      @form[:product_id],
+      @form[:product_description]
     ) do %>
               <.button phx-disable-with="Starting..." class="button1">Start Activity</.button>
             <% end %>
@@ -114,17 +117,18 @@ defmodule UclWeb.UserSideLive.FormComponent do
          type_selected,
          sub_type_selected,
          batch_number,
-         product_id
+         product_id,
+         product_description
        ) do
     cond do
-      type_selected == "Maintenance" ->
+      type_selected == "Operations" ->
         room_selected && batch_number && product_id
 
       type_selected == "Cleaning" ->
         room_selected && sub_type_selected
 
-      type_selected == "Operations" ->
-        room_selected
+      type_selected == "Maintenance" ->
+        room_selected && product_description
 
       true ->
         false
@@ -150,11 +154,13 @@ defmodule UclWeb.UserSideLive.FormComponent do
   end
 
   @impl true
-  def handle_event("room_selected", %{"room_id" => room_id}, socket) do
+  def handle_event("room_selected", %{"activity" => %{"room_id" => room_id}}, socket) do
     IO.inspect(room_id, label: "Room ID selected")
     updated_form = Map.put(socket.assigns.form, :room_id, room_id)
     {:noreply, assign(socket, form: updated_form, room_selected: room_id)}
   end
+
+
 
   @impl true
   def handle_event("activity_selected", %{"type" => type}, socket) do
@@ -204,17 +210,24 @@ defmodule UclWeb.UserSideLive.FormComponent do
       sub_type_selected = activity_params["sub_type"] || socket.assigns.sub_type_selected
 
       batch_number =
-        if type_selected == "Maintenance", do: activity_params["batch_number"], else: nil
+        if type_selected == "Operations", do: activity_params["batch_number"], else: nil
 
       product_id =
-        if type_selected == "Maintenance", do: activity_params["product_id"], else: nil
+        if type_selected == "Operations", do: activity_params["product_id"], else: nil
+
+        product_description =
+          if type_selected == "Maintenance", do: activity_params["product_description"], else: nil
+
+
+
 
       params = %{
         room_id: room_selected,
         type_selected: type_selected,
         sub_type_selected: sub_type_selected,
         batch_number: batch_number,
-        product_id: product_id
+        product_id: product_id,
+        product_description: product_description
       }
 
       IO.inspect(params, label: "Redirect Params")

@@ -36,11 +36,7 @@ defmodule UclWeb.UserSideLive.Index do
   def handle_info({UclWeb.UserSideLive.FormComponent, {:saved, activity}}, socket) do
     {:noreply, stream_insert(socket, :activities, activity)}
   end
-  @impl true
-  def handle_event("room_selected", %{"room_id" => room_id}, socket) do
-    IO.inspect(room_id, label: "Room ID selected")
-    {:noreply, assign(socket, :room_selected, room_id)}
-  end
+
 
 
   @impl true
