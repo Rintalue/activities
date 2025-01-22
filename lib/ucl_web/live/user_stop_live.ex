@@ -21,7 +21,7 @@ defmodule UclWeb.UclWeb.UserStopLive do
 
             <div class="flex items-center justify-between">
               <div>
-                <.button phx-disable-with="Stopping activity..." class="w-full">
+                <.button phx-disable-with="Stopping activity..." class="w-full" style="margin-left:6pc;">
                   Stop Activity
                 </.button>
               </div>

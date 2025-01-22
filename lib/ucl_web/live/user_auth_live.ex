@@ -25,7 +25,7 @@ defmodule UclWeb.UserAuthLive do
               <div>
 
 
-                  <.button phx-disable-with="Logging in..." class="w-full">
+                  <.button phx-disable-with="Logging in..." class="w-full" style="margin-left:7pc;">
                     Log in
                   </.button>
 
